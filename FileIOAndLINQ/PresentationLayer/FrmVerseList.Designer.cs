@@ -177,6 +177,7 @@
             btnAddVerse.TabIndex = 2;
             btnAddVerse.Text = "Add";
             btnAddVerse.UseVisualStyleBackColor = true;
+            btnAddVerse.Click += BtnAddVerseClickEH;
             // 
             // nudVerseImportance
             // 
