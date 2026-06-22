@@ -1,3 +1,11 @@
+/*
+ * Keon Bushman
+ * CST - 250
+ * 06/28/2026
+ * File I/O and LINQ
+ * Activity 6
+ */
+
 using FileIOAndLINQ.PresentationLayer;
 
 namespace FileIOAndLINQ
