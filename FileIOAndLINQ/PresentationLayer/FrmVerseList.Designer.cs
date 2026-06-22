@@ -211,6 +211,7 @@
             txtVerseText.Name = "txtVerseText";
             txtVerseText.Size = new Size(251, 59);
             txtVerseText.TabIndex = 2;
+            txtVerseText.Leave += TxtVerseTextLeaveEH;
             // 
             // txtVerseChapter
             // 
@@ -238,6 +239,7 @@
             txtVerseVerse.Name = "txtVerseVerse";
             txtVerseVerse.Size = new Size(251, 23);
             txtVerseVerse.TabIndex = 7;
+            txtVerseVerse.Leave += TxtVerseVerseLeaveEH;
             // 
             // cmbVerseBook
             // 
