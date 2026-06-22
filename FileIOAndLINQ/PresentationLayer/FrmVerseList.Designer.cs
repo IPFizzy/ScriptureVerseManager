@@ -185,6 +185,7 @@
             nudVerseImportance.Name = "nudVerseImportance";
             nudVerseImportance.Size = new Size(251, 23);
             nudVerseImportance.TabIndex = 2;
+            nudVerseImportance.Leave += NudVerseImportanceLeaveEH;
             // 
             // lblVerseError
             // 
@@ -203,6 +204,7 @@
             txtVerseMeaning.Name = "txtVerseMeaning";
             txtVerseMeaning.Size = new Size(251, 79);
             txtVerseMeaning.TabIndex = 9;
+            txtVerseMeaning.Leave += TxtVerseMeaningLeaveEH;
             // 
             // txtVerseText
             // 
