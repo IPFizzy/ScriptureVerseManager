@@ -14,5 +14,10 @@ namespace FileIOAndLINQ.PresentationLayer
         {
             InitializeComponent();
         }
+
+        private void grpAddVerse_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }
