@@ -80,5 +80,16 @@ namespace FileIOAndLINQ.Services.BusinessLogicLayer
             // Call and return the DAO method
             return _verseDAO.WriteVersesToFile(fileName);
         }
+
+        /// <summary>
+        /// Read the verses from the given file
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public string ReadVersesFromFile(string fileName)
+        {
+            // Return the DAO method
+            return _verseDAO.ReadVersesFromFile(fileName);
+        }
     }
 }
