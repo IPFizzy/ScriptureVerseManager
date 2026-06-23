@@ -58,5 +58,55 @@ namespace FileIOAndLINQ.Services.DataAccessLayer
             // Return the _verses list
             return _verses;
         }
+
+        /// <summary>
+        /// Write the verses list to the given file
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <returns></returns>
+        public string WriteVersesToFile(string fileName)
+        {
+            // Declare and initialize
+            string serialized = "";
+
+            // Create a switch based on the file extension
+            switch (Path.GetExtension(fileName))
+            {
+                case ".txt":
+                    // Loop through the _verse list
+                    foreach (VerseDataModel verse in _verses)
+                    {
+                        // Add each verse to the serialized string
+                        serialized += verse.ToString() + "\n";
+                    }
+                    break;
+
+                case ".json":
+                    // Use ServiceStack to serialize to json
+                    serialized = ServiceStack.Text.JsonSerializer.SerializeToString(_verses);
+                    break;
+
+                case ".csv":
+                    // Use ServiceStack to serialize to csv
+                    serialized = ServiceStack.Text.CsvSerializer.SerializeToString(_verses);
+                    break;
+
+                default:
+                    return "File not recognized";
+            }
+
+                try
+                {
+                    // Use File.WriteAllText to send the serialized string to the file
+                    File.WriteAllText(fileName, serialized);
+                }
+                catch (Exception ex)
+                {
+                    return ex.Message;
+                }
+
+                // Return a success message to the user
+                return "The verses have been saved to your file";
+            }
+        }
     }
-}
