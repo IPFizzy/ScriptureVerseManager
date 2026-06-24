@@ -49,12 +49,6 @@ namespace FileIOAndLINQ.PresentationLayer
             // Initialize cmbVerseBook
             InitializeBooks();
 
-            // Initialize the verse logic variable
-            _verseLogic = new VerseLogic();
-
-            // Initialize the binging source object
-            _versesBindingSource = new BindingSource();
-
             // Set the number to show track bar max to 0
             trbNumberToShow.Maximum = 0;
         }
@@ -439,8 +433,21 @@ namespace FileIOAndLINQ.PresentationLayer
             // Format the data grid view
             FormatVersesDgv();
 
-            // Update the maximum for the number to show track bar
+            // Update the total verses label
+            UpdateTotalVersesLabel();
+
+            // Update the track bar maximum based on the number of verses
             trbNumberToShow.Maximum = verses.Count;
+
+            if (_numToShow == 0 && verses.Count > 0)
+            {
+                _numToShow = 1;
+                trbNumberToShow.Value = 1;
+            }
+
+            // Update the filter radio button text
+            rdoShowLeastImportant.Text = $"Show {_numToShow} Least Important";
+            rdoShowMostImportant.Text = $"Show {_numToShow} Most Important";
         }
 
         /// <summary>
@@ -476,7 +483,9 @@ namespace FileIOAndLINQ.PresentationLayer
             string filter = "All Files (*.*)|*.*|" +
                 "Text File (*.txt)|*.txt|" +
                 "CSV File (*.csv)|*.csv|" +
-                "JSON File (*.json)|*.json";
+                "JSON File (*.json)|*.json|" +
+                "XML File (*.xml)|*.xml|" +
+                "Excel File (*.xlsx)|*.xlsx";
             string fileName = "", result = "";
 
             // Variable to store the result of the SaveFileDialog
@@ -524,7 +533,7 @@ namespace FileIOAndLINQ.PresentationLayer
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
                 // Set the title for the dialog
-                openFileDialog.Title = "Save File";
+                openFileDialog.Title = "Open File";
 
                 // Set the filter for the dialog
                 openFileDialog.Filter = filter;
@@ -611,6 +620,35 @@ namespace FileIOAndLINQ.PresentationLayer
         {
             // Refresh the dgv with all of the users verses
             RefreshVersesDgv();
+        }
+
+        /// <summary>
+        /// Text changed event handler to search verses in real time
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TxtSearchTextChangedEH(object sender, EventArgs e)
+        {
+            // Get the matching verses from the business logic layer
+            List<VerseDisplayModel> verses = _verseLogic.SearchVerses(txtSearch.Text);
+
+            // Update the binding source
+            _versesBindingSource.DataSource = verses;
+
+            // Format the data grid view
+            FormatVersesDgv();
+        }
+
+        /// <summary>
+        /// Update the total verses label
+        /// </summary>
+        public void UpdateTotalVersesLabel()
+        {
+            // Get the total verse count from the business logic layer
+            int totalVerseCount = _verseLogic.GetTotalVerseCount();
+
+            // Update the total verses label
+            lblTotalVerses.Text = $"Total Verses: {totalVerseCount}";
         }
     }
 }

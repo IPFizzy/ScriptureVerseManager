@@ -130,5 +130,40 @@ namespace FileIOAndLINQ.Services.BusinessLogicLayer
             // Convert the dataVerses list to a displayVerses list and return
             return ConvertVerseDataToDisplay(dataVerses);
         }
+
+        /// <summary>
+        /// Search the display verse list using the display model properties
+        /// </summary>
+        /// <param name="searchText"></param>
+        /// <returns></returns>
+        public List<VerseDisplayModel> SearchVerses(string searchText)
+        {
+            // Get all verses from the inventory
+            List<VerseDisplayModel> verses = GetAllVerses();
+
+            // Check if the search text is blank
+            if (string.IsNullOrWhiteSpace(searchText))
+            {
+                // Return all verses if there is no search text
+                return verses;
+            }
+
+            // Search the display properties and return matching verses
+            return verses.Where(verse =>
+                verse.Reference.Contains(searchText, StringComparison.OrdinalIgnoreCase) ||
+                verse.Text.Contains(searchText, StringComparison.OrdinalIgnoreCase) ||
+                verse.Meaning.Contains(searchText, StringComparison.OrdinalIgnoreCase) ||
+                verse.Importance.ToString().Contains(searchText)).ToList();
+        }
+
+        /// <summary>
+        /// Get the total number of verses saved
+        /// </summary>
+        /// <returns></returns>
+        public int GetTotalVerseCount()
+        {
+            // Return the DAO method
+            return _verseDAO.GetTotalVerseCount();
+        }
     }
 }
