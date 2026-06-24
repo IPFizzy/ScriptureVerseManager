@@ -206,5 +206,50 @@ namespace FileIOAndLINQ.Services.DataAccessLayer
             // Return the verse
             return verse;
         }
+
+        /// <summary>
+        /// Get a list of the least important verses
+        /// </summary>
+        /// <param name="numToFind"></param>
+        /// <returns></returns>
+        public List<VerseDataModel> GetLeastImportantVerses(int numToFind)
+        {
+            // Use LINQ query syntax to order the verses and select how
+            // many are needed based on the numToFind parameter
+            List<VerseDataModel> leastImportantVerses = (from verse in _verses
+                                                         orderby verse.Importance
+                                                         select verse).Take(numToFind).ToList();
+
+            // Return the list of least important verses
+            return leastImportantVerses;
+        }
+
+        /// <summary>
+        /// Convert a list of VerseDataModels to VerseDisplayModels
+        /// </summary>
+        /// <param name="dataVerses"></param>
+        /// <returns></returns>
+        public List<VerseDisplayModel> ConvertVerseDataToDisplay(List<VerseDataModel> dataVerses)
+        {
+            // Declare and initialize
+            List<VerseDisplayModel> displayVerses = new List<VerseDisplayModel>();
+            string reference = "";
+
+            // Loop through the dataVerses list
+            foreach (VerseDataModel verse in dataVerses)
+            {
+                // Use the book, chapter, and verse to create the reference
+                reference = $"{verse.Book} {verse.Chapter}:{verse.Verse}";
+
+                // Create a display verse model using the VerseDataModel verse
+                VerseDisplayModel displayVerse = new VerseDisplayModel(reference, verse.Text, verse.Meaning, verse.Importance);
+
+                // Add the display model to the displayVerses list
+                displayVerses.Add(displayVerse);
+            }
+
+            // Return the display verses list
+            return displayVerses;
+        }
     }
 }
