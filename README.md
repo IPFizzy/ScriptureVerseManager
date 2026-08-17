@@ -79,7 +79,7 @@ Excel exports include structured columns for the verse ID, book, chapter, verse,
 ## Project Structure
 
 ```text
-FileIOAndLINQ/
+ScriptureVerseManager/
 ├── FileIOAndLINQ/
 │   ├── Models/
 │   │   ├── VerseDataModel.cs
@@ -117,9 +117,9 @@ The application treats saved verse ranges as multiple verses when calculating th
 For example:
 
 ```text
-John 3:16      = 1 verse
-Philippians 4:6-7 = 2 verses
-Romans 8:38-39 = 2 verses
+John 3:16          = 1 verse
+Philippians 4:6-7  = 2 verses
+Romans 8:38-39     = 2 verses
 ```
 
 The range-counting logic normalizes standard and long dashes, parses the start and end values, and calculates the inclusive number of verses represented by the entry.
@@ -134,8 +134,8 @@ The range-counting logic normalizes standard and long dashes, parses the start a
 Clone the repository:
 
 ```bash
-git clone https://github.com/IPFizzy/FileIOAndLINQ.git
-cd FileIOAndLINQ
+git clone https://github.com/IPFizzy/ScriptureVerseManager.git
+cd ScriptureVerseManager
 ```
 
 Open `FileIOAndLINQ.slnx` in Visual Studio and run the `FileIOAndLINQ` project.
@@ -159,12 +159,6 @@ The project uses EPPlus for Excel file support and configures it for personal no
 ## Practice Project Context
 
 This repository began as a focused exercise in file I/O and LINQ and is preserved as a completed practice project. The finished application expands those concepts into a usable Scripture-management tool with validation, data binding, search, ranking, multiple serialization formats, and separated application layers.
-
-## Recommended Repository Name
-
-For a public portfolio, **`ScriptureVerseManager`** is a stronger repository name than `FileIOAndLINQ` because it describes the finished application instead of the programming concepts used to build it.
-
-The internal project and namespaces can remain unchanged if the repository itself is renamed.
 
 ## Author
 
